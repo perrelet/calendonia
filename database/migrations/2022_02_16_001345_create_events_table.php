@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('admin_url', 512)->nullable()->comment("URL to backend / config area where event can be editted.");
             $table->json('links')->nullable()->comment("JSON: List of social / external / other related urls. [{'label': 'Example', 'url': 'https://example.com'}, ... ]");
 
-            $table->dateTime('start_date')->nullable();
+            $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->string('timezone')->default('Europe/London');
 
