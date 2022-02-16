@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('sub_title')->nullable();
             $table->text('body')->nullable();
             $table->json('tags')->nullable()->comment("JSON: List of tags associated with the event. {'tag_1', 'tag_2', ... }");
-            $table->float('importance')->default(0.0)->comment("Level of promiance for listing the event. 0 = default. 10 = featured.");
+            $table->float('importance')->nullable()->default('0.0')->comment("Level of promiance for listing the event. 0 = default. 10 = featured.");
 
             $table->integer('connection_id');
-            $table->text('extenal_id');
+            $table->text('external_id');
 
             $table->dateTime('show_after')->nullable();
             $table->dateTime('hide_after')->nullable();
