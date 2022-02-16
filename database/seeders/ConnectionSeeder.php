@@ -19,7 +19,7 @@ class ConnectionSeeder extends Seeder
         DB::table('connections')->truncate();
 
         DB::table('connections')->insert([
-            ['name' => 'Study Hub', 'url' => 'https://hub.21gratitudes.com/route'],
+            ['name' => 'Study Hub', 'url' => 'https://hub.21gratitudes.com/route', 'tags' => json_encode(['hub'])],
         ]);
 
     }

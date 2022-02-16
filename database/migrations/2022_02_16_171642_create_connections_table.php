@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url', 512);
+            $table->json('tags');
             $table->timestamps();
             
         });

@@ -23,12 +23,11 @@ return new class extends Migration
             $table->json('tags')->nullable()->comment("JSON: List of tags associated with the event. {'tag_1', 'tag_2', ... }");
             $table->float('importance')->default(0.0)->comment("Level of promiance for listing the event. 0 = default. 10 = featured.");
 
-            $table->json('service')->comment("Name of the service broadcasting this event.");
-            $table->string('service_url', 512)->comment("Root URL to the service.");
-            $table->bigInteger('extenal_id');
+            $table->integer('connection_id');
+            $table->text('extenal_id');
 
-            $table->dateTime('publish_date')->nullable();
-            $table->dateTime('expire_date')->nullable();
+            $table->dateTime('show_after')->nullable();
+            $table->dateTime('hide_after')->nullable();
 
             $table->string('url', 512)->nullable()->comment("Primary URL to the event listin.g");
             $table->string('admin_url', 512)->nullable()->comment("URL to backend / config area where event can be editted.");
@@ -39,6 +38,7 @@ return new class extends Migration
             $table->string('timezone')->default('Europe/London');
 
             $table->string('image', 512)->nullable();
+            $table->string('thumb', 512)->nullable();
             $table->string('video', 512)->nullable();
             $table->string('embed', 1024)->nullable();
             $table->json('medias')->nullable()->comment("JSON: List of additional media files (gallery) associated [{'label': 'Image 1', 'url': 'https://example.com/img.jpg'}, ... ]");
