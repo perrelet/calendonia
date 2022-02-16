@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Connection;
 use Illuminate\Http\Request;
 use App\Services\IngestService;
 
-class EventController extends Controller
-{
+class EventController extends Controller {
 
+    public function injest(IngestService $injestService, $connection_id = null) {
 
-    public function injest(IngestService $injestService) {
+        $connections = $connection_id ? collect([Connection::findOrFail($connection_id)]) : Connection::all();
 
-        return $injestService->process("https://hub.21gratitudes.com/broadcast/");
+        return $injestService->injest($connections);
 
     }
 
