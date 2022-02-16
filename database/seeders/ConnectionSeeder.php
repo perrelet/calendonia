@@ -19,8 +19,21 @@ class ConnectionSeeder extends Seeder
         DB::table('connections')->truncate();
 
         DB::table('connections')->insert([
-            ['name' => 'Study Hub', 'url' => 'https://hub.21gratitudes.com/wp-json/hub/v1/events', 'tags' => json_encode(['online', 'hub'])],
-            ['name' => 'Courses', 'url' => 'https://courses.21gratitudes.com/wp-json/dko/v1/events', 'tags' => json_encode(['online', 'courses'])],
+            [
+                'name'  => 'Study Hub',
+                'url'   => 'https://hub.21gratitudes.com/wp-json/hub/v1/events',
+                'tags'  => json_encode(['online', 'hub'])
+            ],
+            [
+                'name'  => 'Courses',
+                'url'   => 'https://courses.21gratitudes.com/wp-json/dko/v1/events',
+                'tags'  => json_encode(['online', 'courses'])
+            ],
+            [
+                'name'  => '21G',
+                'url'   => 'https://21gratitudes.com/wp-json/21g/v1/events',
+                'tags'  => json_encode(['online', 'events'])
+            ],
         ]);
 
     }
