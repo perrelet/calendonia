@@ -20,20 +20,29 @@ return new class extends Migration
             $table->string('title');
             $table->string('sub_title')->nullable();
             $table->text('body')->nullable();
-            $table->json('service')->comment("Name of the service this event was retrieved from.");
             $table->json('tags')->nullable()->comment("JSON: List of tags associated with the event. {'tag_1', 'tag_2', ... }");
             $table->float('importance')->default(0.0)->comment("Level of promiance for listing the event. 0 = default. 10 = featured.");
+
+            $table->json('service')->comment("Name of the service broadcasting this event.");
+            $table->string('service_url', 512)->comment("Root URL to the service.");
+            $table->bigInteger('extenal_id');
 
             $table->dateTime('publish_date')->nullable();
             $table->dateTime('expire_date')->nullable();
 
             $table->string('url', 512)->nullable()->comment("Primary URL to the event listin.g");
-            $table->json('links')->nullable()->comment("JSON: List of social / external / other related urls. [{'label': 'example', 'url': 'https://example.com'}, ... ]");
+            $table->string('admin_url', 512)->nullable()->comment("URL to backend / config area where event can be editted.");
+            $table->json('links')->nullable()->comment("JSON: List of social / external / other related urls. [{'label': 'Example', 'url': 'https://example.com'}, ... ]");
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('timezone')->default('Europe/London');
 
+            $table->string('image', 512)->nullable();
+            $table->string('video', 512)->nullable();
+            $table->string('embed', 1024)->nullable();
+            $table->json('medias')->nullable()->comment("JSON: List of additional media files (gallery) associated [{'label': 'Image 1', 'url': 'https://example.com/img.jpg'}, ... ]");
+            
             $table->integer('capacity')->nullable()->comment('Total number of spaces available for booking.');
             $table->string('prerequisites', 512)->nullable()->comment('Description of prerequisites required to participate.');
             $table->string('disclaimer', 512)->nullable()->comment('Any warning or disclaimer required.');

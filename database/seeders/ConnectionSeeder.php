@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class DatabaseSeeder extends Seeder
+class ConnectionSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -15,8 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->call([
-            ConnectionSeeder::class,
+        DB::table('connections')->truncate();
+
+        DB::table('connections')->insert([
+            ['name' => 'Study Hub', 'url' => 'https://hub.21gratitudes.com/route'],
         ]);
 
     }
