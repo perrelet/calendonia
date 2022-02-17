@@ -26,7 +26,7 @@ class IngestService {
                 continue;
             }
 
-            $eventsService->clear($connection->id);
+            //$eventsService->clear($connection->id);
             
             $data['events'][$connection->id] = $this->process($response->json(), $connection);
 
@@ -41,7 +41,9 @@ class IngestService {
         $events_service = new EventsService();
         $data = [];
 
-        if ($payload) foreach ($payload as $event_data) {
+        $events_service->delete_unlisted(array_keys($payload), $connection);
+
+        if ($payload) foreach ($payload as $external_id => $event_data) {
 
             $data[] = $events_service->insert($event_data, $connection)->external_id;
 

@@ -19,5 +19,6 @@ use App\Http\Controllers\CalendarContoller;
 Route::get('/', [CalendarContoller::class, 'index']);
 
 Route::get('/injest', [EventController::class, 'injest']);
-
 Route::get('/injest/{connection_id}', [EventController::class, 'injest'])->whereNumber('connection_id');
+
+Route::get('/api/event/{event}', [EventController::class, 'show'])->whereNumber('event');

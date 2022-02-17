@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Utils\TagUtils;
 
 class Event extends Model
 {
@@ -22,11 +24,45 @@ class Event extends Model
         'meta' => 'array',
     ];
 
+    protected $appends = [
+        'tag_open',
+        'tag_close',
+    ];
+
     public function brand (Connection $connection) {
 
         $this->connection_id = $connection->id;
-        if ($connection->tags) $this->tags = $this->tags ? array_merge($this->tags, $connection->tags) : $connection->tags;
+        if ($connection->tags) $this->tags = $this->tags ? $this->tags->merge($connection->tags)->unique('slug') : $connection->tags;
         //$this->tags = null;
+
+    }
+
+    public function get_start_date ($format = "Y-m-d H:i:s") {
+
+        return \DateTime::createFromFormat("Y-m-d H:i:s", $this->start_date)->format($format);
+
+    }
+
+    protected function tags() : Attribute {
+
+        return new Attribute(
+            get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
+            /* set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), */
+        );
+
+    }
+
+    // 
+
+    protected function getTagOpenAttribute () {
+
+        return $this->url ? "<a href='{$this->url}' target='_blank'" : "<div";
+
+    }
+
+    protected function getTagCloseAttribute () {
+
+        return $this->url ? "</a>" : "</div>";
 
     }
 

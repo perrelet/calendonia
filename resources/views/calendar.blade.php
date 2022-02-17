@@ -15,7 +15,8 @@
         </style>
     </head>
     <body>
-        Hellow.
-        <x-event.simple/>
+        @foreach ($events as $event)
+        <x-event.simple :event="$event"/>
+        @endforeach
     </body>
 </html>
