@@ -16,5 +16,6 @@
     </head>
     <body>
         Hellow.
+        <x-event.simple/>
     </body>
 </html>
