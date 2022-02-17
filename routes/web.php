@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\CalendarContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,7 @@ use App\Http\Controllers\EventController;
 |
 */
 
-Route::get('/', function () {
-    return view('calendar');
-});
+Route::get('/', [CalendarContoller::class, 'index']);
 
 Route::get('/injest', [EventController::class, 'injest']);
 
