@@ -22,7 +22,8 @@ class TagUtils {
 
         if (is_array($tag_data)) {
 
-            $name = isset($tag_data['name']) ? $tag_data['name'] : null;
+            $name = $tag_data['name'] ?? null;
+            $slug = $tag_data['slug'] ?? null;
 
         } else {
 
@@ -38,7 +39,6 @@ class TagUtils {
             'slug' => $slug,
         ];
             
-
     }
 
 }

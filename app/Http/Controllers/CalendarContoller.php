@@ -11,12 +11,19 @@ class CalendarContoller extends Controller
 
     public function index (Request $request) {
 
+        $templates = ['simple', 'directory', 'grid'];
+
         $args = $request->validate([
+            'template'  => ['nullable', 'string'],
             'tense'     => ['nullable', 'string'],
             'offset'    => ['nullable', 'integer'],
             'n'         => ['nullable', 'integer'],
             'reverse'   => ['nullable', 'boolean'],
         ]);
+
+        $template = $args['template'] ?? $templates[0];
+        $template = in_array($template, $templates) ? $template : $templates[0];
+        $component = "event.{$template}";
 
         $tense = $args['tense'] ?? 'future';
         $offset = $args['offset'] ?? false;
@@ -41,7 +48,9 @@ class CalendarContoller extends Controller
         //dd($events);
 
         return view('calendar', [
-            'events' => $query->get()
+            'template'  => $template,
+            'component' => $component,
+            'events'    => $query->get(),
         ]);
 
     }

@@ -6,6 +6,8 @@
 
         <title>Calendonia</title>
 
+        <link href='{{ url("/css/{$template}.css") }}' rel='stylesheet'>
+
         <!--<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> -->
 
         <style>
@@ -16,7 +18,7 @@
     </head>
     <body>
         @foreach ($events as $event)
-        <x-event.simple :event="$event"/>
+        <x-dynamic-component :component="$component" :event="$event"/>
         @endforeach
     </body>
 </html>

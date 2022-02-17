@@ -24,11 +24,6 @@ class Event extends Model
         'meta' => 'array',
     ];
 
-    protected $appends = [
-        'tag_open',
-        'tag_close',
-    ];
-
     public function brand (Connection $connection) {
 
         $this->connection_id = $connection->id;
@@ -49,20 +44,6 @@ class Event extends Model
             get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
             /* set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), */
         );
-
-    }
-
-    // 
-
-    protected function getTagOpenAttribute () {
-
-        return $this->url ? "<a href='{$this->url}' target='_blank'" : "<div";
-
-    }
-
-    protected function getTagCloseAttribute () {
-
-        return $this->url ? "</a>" : "</div>";
 
     }
 
