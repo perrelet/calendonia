@@ -24,6 +24,17 @@ class Event extends Model
         'meta' => 'array',
     ];
 
+    protected function tags() : Attribute {
+
+        return new Attribute(
+            get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
+            /* set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), */
+        );
+
+    }
+
+    // 
+
     public function brand (Connection $connection) {
 
         $this->connection_id = $connection->id;
@@ -32,18 +43,17 @@ class Event extends Model
 
     }
 
-    public function get_start_date ($format = "Y-m-d H:i:s") {
+    //
 
-        return \DateTime::createFromFormat("Y-m-d H:i:s", $this->start_date)->format($format);
+    protected function get_primary_tag () {
+
+        return $this->tags[0];
 
     }
 
-    protected function tags() : Attribute {
+    public function get_start_date ($format = "Y-m-d H:i:s") {
 
-        return new Attribute(
-            get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
-            /* set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), */
-        );
+        return \DateTime::createFromFormat("Y-m-d H:i:s", $this->start_date)->format($format);
 
     }
 

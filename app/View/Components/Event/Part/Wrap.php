@@ -8,15 +8,19 @@ class Wrap extends Component
 {
 
     public $url;
+    public $tag;
+    public $class;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($url)
+    public function __construct($url, $tag = "div", $class = "")
     {
-        $this->url = $url;
+        $this->url      = $url;
+        $this->tag      = $tag;
+        $this->class    = $class;
     }
 
     /**
