@@ -19,6 +19,8 @@ class CalendarContoller extends Controller
             'offset'    => ['nullable', 'integer'],
             'n'         => ['nullable', 'integer'],
             'reverse'   => ['nullable', 'boolean'],
+            'tags'      => ['nullable', 'string'],
+            'xtags'     => ['nullable', 'string'],
         ]);
 
         $template = $args['template'] ?? $templates[0];
@@ -29,6 +31,9 @@ class CalendarContoller extends Controller
         $offset = $args['offset'] ?? false;
         $n = $args['n'] ?? false;
         $order = isset($args['reverse']) ? 'DESC' : 'ASC';
+
+        $tags = isset($args['tags']) ? array_map('trim', explode(',', $args['tags'])) : [];
+        $xtags = isset($args['xtags']) ? array_map('trim', explode(',', $args['tags'])) : [];
 
         $query = Event::query()
         ->when($tense === 'future', function ($query) {
