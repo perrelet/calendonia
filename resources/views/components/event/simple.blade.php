@@ -1,4 +1,4 @@
-<x-event.part.wrap :url="$event->url" tag="article">
+<x-event.part.wrap {{ $attributes }} :url="$event->url" tag="article">
     <div class="paper-date">
         <div data-period="D">{{ $event->get_start_date("D") }}</div>
         <div data-period="j">{{ $event->get_start_date("j") }}</div>

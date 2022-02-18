@@ -17,8 +17,6 @@
         </style>
     </head>
     <body>
-        @foreach ($events as $event)
-        <x-dynamic-component :component="$component" :event="$event"/>
-        @endforeach
+        <x-events :component="$component" :events="$events"/>
     </body>
 </html>

@@ -2,9 +2,9 @@
     'tag' => 'div'
 ])
 @if (empty($url))
-<{{ $tag }} class='{{ $class }}'>
+<{{ $tag }} {{ $attributes }}>
 @else
-<a href='{{ $url }}' target='_blank' class='{{ $class }}'>
+<a href='{{ $url }}' target='_blank' {{ $attributes }}>
 @endif
     {{ $slot }}
 @if (empty($url))

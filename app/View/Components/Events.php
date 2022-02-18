@@ -1,24 +1,23 @@
 <?php
 
-namespace App\View\Components\Event\Part;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Wrap extends Component
+class Events extends Component
 {
-
-    public $url;
-    public $tag;
+    public $component;
+    public $events;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($url, $tag = "div")
+    public function __construct($component, $events)
     {
-        $this->url      = $url;
-        $this->tag      = $tag;
+        $this->component    = $component;
+        $this->events       = $events;
     }
 
     /**
@@ -28,6 +27,6 @@ class Wrap extends Component
      */
     public function render()
     {
-        return view('components.event.part.wrap');
+        return view('components.events');
     }
 }
