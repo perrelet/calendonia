@@ -68,6 +68,7 @@ return new class extends Migration
             $table->json('contact_other')->nullable()->comment("JSON: List of other methods contacts. [{'label': 'WhatsApp', 'value': '+41 123 456 7689'}, ... ]");
 
             $table->float('price')->nullable()->comment("Single price value for simple pricing.");
+            $table->float('plan')->nullable()->comment("Subscription / plan / membership pricing option description.");
             $table->string('ticket_url', 512)->nullable()->comment("Single ticket url for simple pricing.");
             $table->json('tickets')->nullable()->comment("JSON: List of tickets for advanced pricing [{'label': 'Adult', 'price': '19.00', url: 'https://tickets.com/adult'}, ... ]");
             $table->string('currency')->nullable();
