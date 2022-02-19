@@ -18,7 +18,8 @@ class Connection extends Model
     protected function tags() : Attribute {
 
         return new Attribute(
-            get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
+            //get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
+            get: fn ($value) => $this->castAttribute('tags', $value),
         );
 
     }

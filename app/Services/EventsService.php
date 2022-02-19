@@ -24,7 +24,14 @@ class EventsService {
 
         }
 
-        $event->brand($connection);
+        $event->connection_id = $connection->id;
+
+        $event->save();
+
+        if (isset($event_data['tags'])) $event->attachTags($event_data['tags']);
+        if ($connection->tags)          $event->attachTags($connection->tags);
+
+        $event->save();
         
         return $event;
 
@@ -51,7 +58,6 @@ class EventsService {
 
         if (!$event->connection_id) dd($event);
 
-        $event->save();
         return $event;
 
     }

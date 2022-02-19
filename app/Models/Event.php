@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Utils\TagUtils;
+use Spatie\Tags\HasTags;
+
+use ArrayAccess;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Tags\Tag;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTags;
 
     protected $guarded = ['id'];
 
     protected $casts = [
-        'tags' => 'array',
+        /* 'tags' => 'array', */
         'links' => 'array',
         'medias' => 'array',
         'organisers' => 'array',
@@ -24,32 +29,44 @@ class Event extends Model
         'meta' => 'array',
     ];
 
-    protected function tags() : Attribute {
+    //
+
+    public function scopeWithoutTags(
+        Builder $query,
+        array | ArrayAccess | Tag $tags,
+        string $type = null,
+    ): Builder {
+
+        $tags = static::convertToTags($tags, $type);
+        $tagIds = collect($tags)->whereNotNull()->pluck('id');
+        if ($tagIds->isEmpty()) return $query;
+        $tagIds = Tag::all()->pluck('id')->diff($tagIds);
+
+        collect($tagIds)->each(function ($tag) use ($query) {
+            $query->whereHas('tags', function (Builder $query) use ($tag) {
+                $query->where('tags.id', $tag);
+            });
+        });
+
+        return $query; 
+    }
+
+    /* protected function tags() : Attribute {
 
         return new Attribute(
             get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
-            /* set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), */
+            //set: fn ($value) => ($value instanceof \Illuminate\Support\Collection) ? $value : TagUtils::parse($value), 
         );
 
-    }
-
-    // 
-
-    public function brand (Connection $connection) {
-
-        $this->connection_id = $connection->id;
-        if ($connection->tags) $this->tags = $this->tags ? $this->tags->merge($connection->tags)->unique('slug') : $connection->tags;
-        //$this->tags = null;
-
-    }
+    } */
 
     //
 
-    protected function get_primary_tag () {
+    /* protected function get_primary_tag () {
 
         return $this->tags[0];
 
-    }
+    } */
 
     public function get_start_date ($format = "Y-m-d H:i:s") {
 

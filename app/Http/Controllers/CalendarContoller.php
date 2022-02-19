@@ -33,7 +33,7 @@ class CalendarContoller extends Controller
         $order = isset($args['reverse']) ? 'DESC' : 'ASC';
 
         $tags = isset($args['tags']) ? array_map('trim', explode(',', $args['tags'])) : [];
-        $xtags = isset($args['xtags']) ? array_map('trim', explode(',', $args['tags'])) : [];
+        $xtags = isset($args['xtags']) ? array_map('trim', explode(',', $args['xtags'])) : [];
 
         $query = Event::query()
         ->when($tense === 'future', function ($query) {
@@ -47,6 +47,12 @@ class CalendarContoller extends Controller
         })
         ->when($n, function ($query, $n) {
             $query->limit($n);
+        })
+        ->when($tags, function ($query, $tags) {
+            $query->withAnyTags($tags);
+        })
+        ->when($xtags, function ($query, $xtags) {
+            $query->withoutTags($xtags);
         })
         ->orderBy('start_date', $order);
 
