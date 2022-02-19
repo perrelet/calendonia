@@ -21,6 +21,7 @@ class CalendarContoller extends Controller
             'reverse'   => ['nullable', 'boolean'],
             'tags'      => ['nullable', 'string'],
             'xtags'     => ['nullable', 'string'],
+            'filters'   => ['nullable', 'string'],
         ]);
 
         $template = $args['template'] ?? $templates[0];
@@ -34,6 +35,8 @@ class CalendarContoller extends Controller
 
         $tags = isset($args['tags']) ? array_map('trim', explode(',', $args['tags'])) : [];
         $xtags = isset($args['xtags']) ? array_map('trim', explode(',', $args['xtags'])) : [];
+
+        $filters = isset($args['filters']) ? array_map('trim', explode(',', $args['filters'])) : [];
 
         $query = Event::query()
         ->when($tense === 'future', function ($query) {
@@ -57,7 +60,7 @@ class CalendarContoller extends Controller
         ->orderBy('start_date', $order);
 
         //dd($events);
-
+        
         return view('calendar', [
             'template'  => $template,
             'component' => $component,
