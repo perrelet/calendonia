@@ -37,7 +37,7 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->string('timezone')->default('Europe/London');
-            $table->json('sub_dates')->nullable()->comment("JSON: List of secondary dates [{'date': 'Y-m-d H:i:s', 'label': 'Sub event'}, ... ]");
+            $table->json('sub_dates')->nullable()->comment("JSON: List of secondary dates [{'date': 'Y-m-d H:i:s', 'label': 'Sub Event'}, ... ]");
 
             $table->string('image', 512)->nullable();
             $table->string('thumb', 512)->nullable();
