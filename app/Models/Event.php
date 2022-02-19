@@ -70,8 +70,10 @@ class Event extends Model
 
     public function get_start_date ($format = "Y-m-d H:i:s") {
 
-        return \DateTime::createFromFormat("Y-m-d H:i:s", $this->start_date)->format($format);
-
+        $datetime = new \DateTime($this->start_date, new \DateTimeZone($this->timezone));
+        //if () $datetime->setTimezone(new \DateTimeZone('Pacific/Chatham'))
+        return $datetime->format($format);
+        
     }
 
 }
