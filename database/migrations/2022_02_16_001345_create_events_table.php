@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title')->comment("*");
+            $table->string('type')->comment("*");
             $table->string('sub_title')->nullable();
             $table->text('body')->nullable();
             //$table->json('tags')->comment("* JSON: List of tags associated with the event. {'tag_1', 'tag_2', ... }");
