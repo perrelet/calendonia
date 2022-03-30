@@ -15,13 +15,15 @@ class ConnectionResource extends Resource
 {
     protected static ?string $model = Connection::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-s-lightning-bolt';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('url')->required(),
+                Forms\Components\TextInput::make('tags')->required(),
             ]);
     }
 

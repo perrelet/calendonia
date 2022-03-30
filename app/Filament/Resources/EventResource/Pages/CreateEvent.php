@@ -23,30 +23,22 @@ class CreateEvent extends CreateRecord
 
     public function form(Form $form): Form {
 
-        $event_types = Event::distinct()->get(['type']);
-        $types = [];
-        foreach ($event_types as $event_type) $types[$event_type->type] = $event_type->type;
-        $types['SOMM'] = 'SOMM';
-
-        $importances = [];
-        for ($i = 1; $i <= 9; $i++) $importances[$i] = $i;
-
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
                 Forms\Components\TextInput::make('sub_title'),
-                Forms\Components\Select::make('type')->options($types)->placeholder('Select an Event Type')->required(),
-                Forms\Components\Select::make('importance')->options($importances)->placeholder('Default'),
-                Forms\Components\TextInput::make('url'),
-                Forms\Components\Checkbox::make('virtual')->label('This event is virtual / online.'),
+                Forms\Components\Select::make('type')->options(Event::get_type_options())->placeholder('Select an Event Type')->required(),
+                Forms\Components\Select::make('importance')->options(Event::get_importance_options())->placeholder('Default'),
+                Forms\Components\TextInput::make('url')->label(Event::get_url_label()),
+                Forms\Components\Select::make('virtual')->options(Event::get_virtual_options())->disablePlaceholderSelection()->label(Event::get_virtual_label()),
                 Forms\Components\DateTimePicker::make('start_date')->required(),
                 Forms\Components\DateTimePicker::make('end_date'),
                 Forms\Components\TextInput::make('image'),
                 Forms\Components\TextInput::make('thumb'),
                 Forms\Components\TextInput::make('price'),
                 Forms\Components\TextInput::make('currency'),
-                Forms\Components\RichEditor::make('body'),
-                
+                /* Forms\Components\TextInput::make('tags'), */
+                Forms\Components\RichEditor::make('body'),                
             ]);
     }
 }
