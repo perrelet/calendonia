@@ -1,4 +1,5 @@
 <x-event.part.wrap {{ $attributes->merge(['class' => 'event']) }} :url="$event->url" tag="article">
+    <div class="thumb" style="background-image: url({{ $event->thumb }});"></div>
     <div class="paper-date">
         <div data-period="D">{{ $event->get_start_date("D") }}</div>
         <div data-period="j">{{ $event->get_start_date("j") }}</div>

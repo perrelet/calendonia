@@ -27,6 +27,15 @@ a.event:hover, a.event:active {
     transform: translate(0.5rem, 0px);
 }
 
+.thumb {
+    min-width: 64px;
+    min-height: 64px;
+    background-size: cover;
+    background-position: 50% 50%;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+}
+
 .paper-date {
     background-color: #f4f4f4;
     color: #8e8e8e;
@@ -118,4 +127,8 @@ a:hover .paper-date, a:active .paper-date {
 
 .info .type[data-type='tribal-heart-ceremony'] {
     background: #ff923f;
+}
+
+.info .type[data-type='online-event'] {
+    background: #3deea8;
 }
