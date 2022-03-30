@@ -86,4 +86,50 @@ class Event extends Model
         
     }
 
+    // STATIC
+
+    public static function get_importance_options () {
+
+        $importances = [];
+        for ($i = 1; $i <= 9; $i++) $importances[$i] = $i;
+        return $importances;
+
+    }
+
+    public static function get_type_options () {
+
+        $types = [];
+
+        $event_types = Event::distinct()->get(['type']);
+        foreach ($event_types as $event_type) $types[$event_type->type] = $event_type->type;
+
+        $types['SOMM'] = 'SOMM';
+
+        return $types;
+
+    }
+
+    public static function get_virtual_options () {
+
+        return [
+            1 => 'Virtual',
+            0 => 'Physical',
+        ];
+
+    }
+
+    //
+
+    public static function get_url_label () {
+
+        return "Event page URL";
+
+    }
+
+    public static function get_virtual_label () {
+
+        return "Is the event virtual or physical?";
+
+    }
+
 }

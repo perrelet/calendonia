@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
+use App\Models\Event;
+
 use App\Filament\Resources\EventResource;
 use Filament\Resources\Pages\EditRecord;
 
@@ -13,25 +15,23 @@ class EditEvent extends EditRecord
 
     public function form(Form $form): Form {
 
-        $disable_fields = $this->record->injested;
-
-        $importances = [];
-        for ($i = 1; $i <= 9; $i++) $importances[$i] = $i;
+        $disable = $this->record->injested;
 
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->required()->disabled($disable_fields),
-                Forms\Components\TextInput::make('sub_title')->disabled($disable_fields),
-                Forms\Components\Select::make('importance')->options($importances)->placeholder('Default'),
-                Forms\Components\TextInput::make('url')->disabled($disable_fields),
-                Forms\Components\Checkbox::make('virtual')->disabled($disable_fields)->label('This event is virtual / online.'),
-                Forms\Components\DateTimePicker::make('start_date')->disabled($disable_fields)->required(),
-                Forms\Components\DateTimePicker::make('end_date')->disabled($disable_fields),
-                Forms\Components\TextInput::make('image')->disabled($disable_fields),
-                Forms\Components\TextInput::make('thumb')->disabled($disable_fields),
-                Forms\Components\TextInput::make('price')->disabled($disable_fields),
-                Forms\Components\TextInput::make('currency')->disabled($disable_fields),
-                Forms\Components\RichEditor::make('body')->disabled($disable_fields),
+                Forms\Components\TextInput::make('title')->required()->disabled($disable),
+                Forms\Components\TextInput::make('sub_title')->disabled($disable),
+                Forms\Components\Select::make('importance')->options(Event::get_importance_options())->placeholder('Default'),
+                Forms\Components\TextInput::make('url')->label(Event::get_url_label())->disabled($disable),
+                Forms\Components\Select::make('virtual')->options(Event::get_virtual_options())->disablePlaceholderSelection()->label(Event::get_virtual_label()),
+                Forms\Components\DateTimePicker::make('start_date')->disabled($disable)->required(),
+                Forms\Components\DateTimePicker::make('end_date')->disabled($disable),
+                Forms\Components\TextInput::make('image')->disabled($disable),
+                Forms\Components\TextInput::make('thumb')->disabled($disable),
+                Forms\Components\TextInput::make('price')->disabled($disable),
+                Forms\Components\TextInput::make('currency')->disabled($disable),
+                /* Forms\Components\TextInput::make('tags')->disabled($disable), */
+                Forms\Components\RichEditor::make('body')->disabled($disable),
             ]);
     }
 
