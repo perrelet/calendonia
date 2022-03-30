@@ -11,9 +11,13 @@ class Connection extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     protected $casts = [
         'tags' => 'array',
     ];
+
+    protected $appends = ['status'];
 
     protected function tags() : Attribute {
 
@@ -21,6 +25,25 @@ class Connection extends Model
             //get: fn ($value) => TagUtils::parse($this->castAttribute('tags', $value)),
             get: fn ($value) => $this->castAttribute('tags', $value),
         );
+
+    }
+
+    //
+
+    public function getStatusAttribute () {
+
+        return !$this->error;
+
+    }
+
+    //
+
+    public static function get_status_options () {
+
+        return [
+            1 => 'Enabled',
+            0 => 'Disabled',
+        ];
 
     }
 

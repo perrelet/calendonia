@@ -16,9 +16,12 @@ class ListConnections extends ListRecords
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\BooleanColumn::make('active'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('url'),
                 Tables\Columns\TextColumn::make('tags'),
+                Tables\Columns\TextColumn::make('last_run'),
+                Tables\Columns\BooleanColumn::make('status'),
             ]);
     }
 

@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('connections', function (Blueprint $table) {
 
             $table->id();
+            $table->boolean('active')->nullable();
             $table->string('name');
             $table->string('url', 512);
             $table->json('tags');
-            $table->timestamps();
+            $table->dateTime('last_run')->nullable();
+            $table->text('error')->nullable();
+            $table->timestamps();            
             
         });
     }
