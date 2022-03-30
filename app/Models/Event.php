@@ -29,6 +29,16 @@ class Event extends Model
         'meta' => 'array',
     ];
 
+    protected $appends = ['injested'];
+
+    //
+
+    public function getInjestedAttribute () {
+
+        return $this->connection_id ? true : false;
+
+    }
+
     //
 
     public function scopeWithoutTags(

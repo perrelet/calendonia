@@ -14,7 +14,7 @@ use Filament\Tables;
 class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
-
+    protected static ?string $recordTitleAttribute = 'id';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
