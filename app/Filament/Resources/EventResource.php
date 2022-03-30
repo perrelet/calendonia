@@ -10,12 +10,18 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
 
 class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
     protected static ?string $recordTitleAttribute = 'id';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    public static function canDelete(Model $record): bool
+    {
+        return !$record->injested;
+    }
 
     public static function form(Form $form): Form
     {
