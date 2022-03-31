@@ -6,6 +6,7 @@ use App\Models\Event;
 
 use App\Filament\Resources\EventResource;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\View\View;
 
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -34,5 +35,6 @@ class EditEvent extends EditRecord
                 Forms\Components\RichEditor::make('body')->disabled($disable),
             ]);
     }
+
 
 }
