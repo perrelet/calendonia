@@ -31,6 +31,7 @@ class EventResource extends Resource
                 Forms\Components\TextInput::make('id'),
                 Forms\Components\TextInput::make('title'),
                 Forms\Components\TextInput::make('sub_title'),
+                Forms\Components\SpatieTagsInput::make('tags'),
                 Forms\Components\TextInput::make('type'),
                 Forms\Components\TextInput::make('importance'),
                 Forms\Components\TextInput::make('connection_id'),
