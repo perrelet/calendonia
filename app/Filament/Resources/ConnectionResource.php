@@ -24,7 +24,7 @@ class ConnectionResource extends Resource
                 Forms\Components\Select::make('active')->options(Connection::get_status_options())->disablePlaceholderSelection(),
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('url')->required(),
-                Forms\Components\TextInput::make('tags')->required(),
+                Forms\Components\SpatieTagsInput::make('tags')->required(),
                 Forms\Components\TextInput::make('last_run')->disabled(true),
                 Forms\Components\Textarea::make('error')->disabled(true),
             ]);
