@@ -8,6 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ListEvents extends ListRecords
 {
@@ -21,7 +22,12 @@ class ListEvents extends ListRecords
                 Tables\Columns\TextColumn::make('title')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('start_date')->sortable(),
-                Tables\Columns\BooleanColumn::make('injested')->falseColor('warning'),
+                Tables\Columns\BooleanColumn::make('injested')
+                    ->label('')
+                    ->trueColor('success')
+                    ->trueIcon('heroicon-s-switch-horizontal')
+                    ->falseColor('secondary')
+                    ->falseIcon('heroicon-s-pencil-alt'),
             ])
             ->defaultSort('start_date', 'desc');
             /* ->actions(array_merge(
@@ -34,6 +40,19 @@ class ListEvents extends ListRecords
                     ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
             ]) */
             
+    }
+
+    protected function getTableRecordUrlUsing(): ?\Closure {
+        
+        return function (Model $record): ?string {
+            $resource = static::getResource();
+
+            if (! ($resource::hasPage('edit') && $resource::canEdit($record))) {
+                return null;
+            }
+
+            return $resource::getUrl('edit', ['record' => $record]);
+        };
     }
 
 }
