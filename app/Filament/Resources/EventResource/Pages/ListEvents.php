@@ -21,14 +21,19 @@ class ListEvents extends ListRecords
                 Tables\Columns\TextColumn::make('title')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('start_date')->sortable(),
-                Tables\Columns\BooleanColumn::make('injested')->sortable(),
+                Tables\Columns\BooleanColumn::make('injested')->falseColor('warning'),
             ])
             ->defaultSort('start_date', 'desc');
+            /* ->actions(array_merge(
+                ($this->hasEditAction() ? [$this->getEditAction()] : []),
+                ($this->hasDeleteAction() ? [$this->getDeleteAction()] : []),
+            )); */
+            
             /* ->filters([
                 Tables\Filters\Filter::make('verified')
                     ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
             ]) */
-            ;
+            
     }
 
 }
