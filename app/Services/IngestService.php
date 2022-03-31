@@ -18,17 +18,28 @@ class IngestService {
 
         if ($connections) foreach ($connections as $connection) {
 
-            $response = Http::acceptJson()->get($connection->url);
+            if (!$connection->active) continue;
 
-            if ($response->failed()) {
+            $connection->error = null;
+            $connection->last_run = date("Y-m-d H:i:s");
 
-                dd("RERRER");
+            try {
+
+                $response = Http::acceptJson()->get($connection->url);
+
+            } catch (\Exception $e) {
+
+                $connection->error = "Error connecting to connection {$connection->id}: " . $e->getMessage();
+                $connection->save();
                 continue;
+
             }
 
             //$eventsService->clear($connection->id);
             
             $data['events'][$connection->id] = $this->process($response->json(), $connection);
+            
+            $connection->save();
 
         }
 
