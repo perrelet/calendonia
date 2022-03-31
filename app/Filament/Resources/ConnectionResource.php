@@ -14,7 +14,7 @@ use Filament\Tables;
 class ConnectionResource extends Resource
 {
     protected static ?string $model = Connection::class;
-
+    protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'heroicon-s-lightning-bolt';
 
     public static function form(Form $form): Form
