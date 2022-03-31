@@ -9,8 +9,8 @@ use Carbon\Carbon;
 class CalendarContoller extends Controller
 {
 
-    public function index (Request $request) {
-
+    public function index (Request $request, $template = null) {
+        
         $templates = ['simple', 'directory', 'grid'];
 
         $args = $request->validate([
@@ -24,7 +24,7 @@ class CalendarContoller extends Controller
             'filters'   => ['nullable', 'string'],
         ]);
 
-        $template = $args['template'] ?? $templates[0];
+        if (is_null($template)) $template = $args['template'] ?? $templates[0];
         $template = in_array($template, $templates) ? $template : $templates[0];
         $component = "event.{$template}";
 
