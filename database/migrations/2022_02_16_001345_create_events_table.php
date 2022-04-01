@@ -49,7 +49,7 @@ return new class extends Migration
             $table->string('prerequisites', 512)->nullable()->comment('Description of prerequisites required to participate.');
             $table->string('disclaimer', 512)->nullable()->comment('Any warning or disclaimer required.');
 
-            $table->boolean('virtual')->comment('Whether the event is physical or virtual.');
+            $table->boolean('virtual')->comment('Whether the event is physical or virtual.')->nullable();
             $table->string('host')->nullable();
             $table->json('organisers')->nullable()->comment("JSON: List of organisers / secondary hosts. [{'name': 'Jill', 'role': 'artist'}, ... ]");;
             $table->json('artists')->nullable()->comment("JSON: List of artists / talent. [{'name': 'Jill', 'role': 'artist'}, ... ]");;
