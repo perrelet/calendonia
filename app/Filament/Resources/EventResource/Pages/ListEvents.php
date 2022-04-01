@@ -22,6 +22,8 @@ class ListEvents extends ListRecords
                 Tables\Columns\TextColumn::make('title')->sortable(),
                 Tables\Columns\TextColumn::make('type')->sortable(),
                 Tables\Columns\TextColumn::make('start_date')->sortable(),
+                Tables\Columns\SpatieTagsColumn::make('tags'),
+                Tables\Columns\TextColumn::make('stars')->label(""),
                 Tables\Columns\BooleanColumn::make('injested')
                     ->label('')
                     ->trueColor('success')

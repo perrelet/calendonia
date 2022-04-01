@@ -29,13 +29,27 @@ class Event extends Model
         'meta' => 'array',
     ];
 
-    protected $appends = ['injested'];
+    protected $appends = ['injested', 'stars'];
 
     //
 
     public function getInjestedAttribute () {
 
         return $this->connection_id ? true : false;
+
+    }
+
+    public function getStarsAttribute () {
+
+        if (!$this->importance) {
+            return "";
+        } else if ($this->importance <= 1) {
+            return "⭐";
+        } else if ($this->importance <= 9) {
+            return "⭐⭐";
+        } else {
+            return "⭐⭐⭐";
+        }
 
     }
 
