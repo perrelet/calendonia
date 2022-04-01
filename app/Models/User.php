@@ -45,7 +45,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessFilament(): bool
     {
-
+        
         $allowed_emails = ['jperrelet@gmail.com'];
 
         return in_array($this->email, $allowed_emails) && $this->hasVerifiedEmail();
