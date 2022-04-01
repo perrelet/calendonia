@@ -41,7 +41,7 @@ class Event extends Model
 
     public function getStarsAttribute () {
 
-        if (!$this->importance) {
+        if (!$this->importance || $this->importance < 1) {
             return "";
         } else if ($this->importance <= 1) {
             return "⭐";

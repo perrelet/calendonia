@@ -31,16 +31,18 @@ class ListEvents extends ListRecords
                     ->falseColor('secondary')
                     ->falseIcon('heroicon-s-pencil-alt'),
             ])
-            ->defaultSort('start_date', 'desc');
+            ->defaultSort('start_date', 'desc')
             /* ->actions(array_merge(
                 ($this->hasEditAction() ? [$this->getEditAction()] : []),
                 ($this->hasDeleteAction() ? [$this->getDeleteAction()] : []),
             )); */
             
-            /* ->filters([
-                Tables\Filters\Filter::make('verified')
-                    ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
-            ]) */
+            ->filters([
+                Tables\Filters\Filter::make('manual')->label('Manual')
+                    ->query(fn (Builder $query): Builder => $query->where('connection_id', '<', 1)),
+                Tables\Filters\Filter::make('automated')->label('Automated')
+                    ->query(fn (Builder $query): Builder => $query->where('connection_id', '>', 0)),
+            ]);
             
     }
 
