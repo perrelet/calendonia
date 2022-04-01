@@ -19,6 +19,7 @@ class CreateEvent extends CreateRecord
         $data['external_id'] = 0;
      
         return $data;
+        
     }
 
     public function form(Form $form): Form {
@@ -27,6 +28,7 @@ class CreateEvent extends CreateRecord
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
                 Forms\Components\TextInput::make('sub_title'),
+                Forms\Components\SpatieTagsInput::make('tags'),
                 Forms\Components\Select::make('type')->options(Event::get_type_options())->placeholder('Select an Event Type')->required(),
                 Forms\Components\Select::make('importance')->options(Event::get_importance_options())->placeholder('Default'),
                 Forms\Components\TextInput::make('url')->label(Event::get_url_label()),
