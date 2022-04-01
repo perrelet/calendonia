@@ -36,7 +36,7 @@ class Connection extends Model
 
     }
 
-    //
+    // STATIC
 
     public static function get_status_options () {
 
