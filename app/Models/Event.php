@@ -100,7 +100,32 @@ class Event extends Model
         
     }
 
-    // STATIC
+    public function get_thumb ($default = "img/default-thumb.jpg") {
+
+        return $this->attributes['thumb'] ? $this->attributes['thumb'] : $default;
+
+    }
+
+    public function get_location () {
+
+        if ($this->virtual)     return "Online";
+        if ($this->venue)       return $this->venue;
+        if ($this->address_3)   return $this->address_3;
+        if ($this->country)     return $this->country;
+        if ($this->address_2)   return $this->address_2;
+        if ($this->address_1)   return $this->address_1;
+
+        return null;
+
+    }
+
+    /* public function get_url () {
+
+        return 
+
+    } */
+
+    // STATIC METHODS
 
     public static function get_importance_options () {
 
