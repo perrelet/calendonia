@@ -36,6 +36,12 @@ class ConnectionSeeder extends Seeder
                 'url'       => 'https://21gratitudes.com/wp-json/21g/v1/events',
                 'tags'      => json_encode(['online', 'events'])
             ],
+            [
+                'active'    => true,
+                'name'      => 'SOMM',
+                'url'       => 'https://www.schoolofmovementmedicine.com/wp-json/somm/v1/events',
+                'tags'      => json_encode(['somm'])
+            ],
         ]);
 
     }
