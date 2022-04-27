@@ -62,4 +62,20 @@ class EventsService {
 
     }
 
+    public function group_events ($events, $group_by = "F Y") {
+
+        $grouped = [];
+
+        foreach ($events as $event) {
+
+            $group = $event->get_start_date($group_by);
+            if (!isset($grouped[$group])) $grouped[$group] = [];
+            $grouped[$group][] = $event;
+
+        }
+
+        return $grouped;
+
+    }
+
 }
