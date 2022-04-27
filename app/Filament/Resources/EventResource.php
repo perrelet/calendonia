@@ -6,6 +6,8 @@ use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Filament\Forms;
+use Forms\Components\TextInput;
+use Forms\Components\SpatieTagsInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -28,24 +30,36 @@ class EventResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id'),
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('sub_title'),
-                Forms\Components\SpatieTagsInput::make('tags'),
-                Forms\Components\TextInput::make('type'),
-                Forms\Components\TextInput::make('importance'),
-                Forms\Components\TextInput::make('connection_id'),
-                Forms\Components\TextInput::make('external_id'),
-                Forms\Components\TextInput::make('url'),
-                Forms\Components\TextInput::make('start_date'),
-                Forms\Components\TextInput::make('end_date'),
-                Forms\Components\TextInput::make('image'),
-                Forms\Components\TextInput::make('thumb'),
-                Forms\Components\TextInput::make('virtual'),
-                Forms\Components\TextInput::make('price'),
-                Forms\Components\TextInput::make('currency'),
-                Forms\Components\TextInput::make('created_at'),
-                Forms\Components\TextInput::make('updated_at'),
+                TextInput::make('id'),
+                TextInput::make('title'),
+                TextInput::make('sub_title'),
+                SpatieTagsInput::make('tags'),
+                TextInput::make('type'),
+                TextInput::make('importance'),
+                TextInput::make('connection_id'),
+                TextInput::make('external_id'),
+                TextInput::make('url'),
+                TextInput::make('start_date'),
+                TextInput::make('end_date'),
+                TextInput::make('image'),
+                TextInput::make('thumb'),
+                TextInput::make('virtual'),
+                TextInput::make('country'),
+                TextInput::make('host'),
+                TextInput::make('organisers'),
+                TextInput::make('artists'),
+                TextInput::make('venue'),
+                TextInput::make('company'),
+                TextInput::make('address_1'),
+                TextInput::make('address_2'),
+                TextInput::make('address_3'),
+                TextInput::make('post_code'),
+                TextInput::make('country'),
+                TextInput::make('lat_long'),
+                TextInput::make('price'),
+                TextInput::make('currency'),
+                TextInput::make('created_at'),
+                TextInput::make('updated_at'),
             ])
             ->columns(1);
     }

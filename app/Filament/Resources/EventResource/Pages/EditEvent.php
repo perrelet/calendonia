@@ -22,6 +22,7 @@ class EditEvent extends EditRecord
             ->schema([
                 Forms\Components\TextInput::make('title')->required()->disabled($disable),
                 Forms\Components\TextInput::make('sub_title')->disabled($disable),
+                Forms\Components\Checkbox::make('hide')->label('Hide this event?'),
                 Forms\Components\SpatieTagsInput::make('tags')->disabled($disable),
                 Forms\Components\Select::make('importance')->options(Event::get_importance_options())->placeholder('Default'),
                 Forms\Components\TextInput::make('url')->label(Event::get_url_label())->disabled($disable),
