@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Carbon\Carbon;
+use App\Services\EventsService;
+use Illuminate\Support\Facades\Route;
 
 class CalendarContoller extends Controller
 {
 
-    public function index (Request $request, $template = null) {
+    public function index (EventsService $eventsService, Request $request, $template = null) {
         
-        $templates = ['simple', 'directory', 'grid'];
+        $templates = ['simple', 'directory', 'grid', 'hub'];
 
         $args = $request->validate([
             'template'  => ['nullable', 'string'],
             'tense'     => ['nullable', 'string'],
             'offset'    => ['nullable', 'integer'],
             'n'         => ['nullable', 'integer'],
+            'group'     => ['nullable', 'string'],
+            'ppp'       => ['nullable', 'integer'],
             'reverse'   => ['nullable', 'boolean'],
             'tags'      => ['nullable', 'string'],
             'xtags'     => ['nullable', 'string'],
@@ -28,44 +32,62 @@ class CalendarContoller extends Controller
         $template = in_array($template, $templates) ? $template : $templates[0];
         $component = "event.{$template}";
 
-        $tense = $args['tense'] ?? 'future';
-        $offset = $args['offset'] ?? false;
-        $n = $args['n'] ?? false;
-        $order = isset($args['reverse']) ? 'DESC' : 'ASC';
+        $args['tense'] = $args['tense'] ?? 'future';
+        $args['offset'] = $args['offset'] ?? false;
+        $args['n'] = $args['n'] ?? false;
+        $args['group'] = $args['group'] ?? "F Y";
+        if ($args['group']) $args['group'] = str_replace("-", " ", $args['group']);
+        $args['ppp'] = $args['ppp'] ?? 12;
+        $args['order'] = isset($args['reverse']) ? 'DESC' : 'ASC';
 
-        $tags = isset($args['tags']) ? array_map('trim', explode(',', $args['tags'])) : [];
-        $xtags = isset($args['xtags']) ? array_map('trim', explode(',', $args['xtags'])) : [];
-
+        $args['tags'] = isset($args['tags']) ? array_map('trim', explode(',', $args['tags'])) : [];
+        $args['xtags'] = isset($args['xtags']) ? array_map('trim', explode(',', $args['xtags'])) : [];
         $filters = isset($args['filters']) ? array_map('trim', explode(',', $args['filters'])) : [];
 
         $query = Event::query()
-        ->when($tense === 'future', function ($query) {
+        ->when($args['tense'] === 'future', function ($query) {
             $query->where('start_date', '>=', Carbon::now('Europe/London'));
         })
-        ->when($tense === 'past', function ($query) {
+        ->when($args['tense'] === 'past', function ($query) {
             $query->where('start_date', '<=', Carbon::now('Europe/London'));
         })
-        ->when($offset, function ($query, $offset) {
+        ->when($args['offset'], function ($query, $offset) {
             $query->offset($offset);
         })
-        ->when($n, function ($query, $n) {
+        ->when($args['n'], function ($query, $n) {
             $query->limit($n);
         })
-        ->when($tags, function ($query, $tags) {
+        ->when($args['tags'], function ($query, $tags) {
             $query->withAnyTags($tags);
         })
-        ->when($xtags, function ($query, $xtags) {
+        ->when($args['xtags'], function ($query, $xtags) {
             $query->withoutTags($xtags);
         })
-        ->orderBy('start_date', $order);
+        ->whereNull('hide')
+        ->orderBy('start_date', $args['order']);
 
-        //dd($events);
-        
-        return view('calendar', [
+        if ($args['ppp']) {
+            $events = $query->paginate($args['ppp']);
+        } else {
+            $events = $query->get();
+        }
+
+        $grouped = $args['group'] ? $eventsService->group_events($events, $args['group']) : null;
+
+        //if ($args['group']) $events = $eventsService->group_events($events, $args['group']);
+
+        $params = [
             'template'  => $template,
             'component' => $component,
-            'events'    => $query->get(),
-        ]);
+            'events'    => $events,
+            'grouped'   => $grouped,
+            'args'      => $args,
+        ];
+
+        $uri = explode("/", Route::current()->uri);
+        if ($uri && ($uri[0] == 'api')) return $params;
+
+        return view('calendar', $params);
 
     }
 
