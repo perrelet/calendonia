@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         })
         ->name('injest')
         ->withoutOverlapping()
-        ->everyMinute();
+        ->everyFifteenMinutes();
 
     }
 
