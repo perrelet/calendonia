@@ -1,4 +1,4 @@
-<x-event.part.wrap {{ $attributes->merge(['class' => 'item event']) }} :url="$event->url" tag="article">
+<x-event.part.wrap {{ $attributes->merge(['class' => 'item event']) }} :url="$event->get_url($args['direct'] ? 'access' : false)" tag="article">
     <div class="card">
         <div class="thumb" style="background-image: url({{ $event->get_thumb() }});"></div>
         <div class="date">
@@ -10,7 +10,7 @@
     <div class="info">
         <div class="title">{{ $event['title'] }}</div>
         <div class="when-where">
-            {{ $event->get_start_date("h:i a") }} <span class='timezone'>{{ $event->get_start_date("T") }}</span>
+            {{ $event->get_time_range($args['timezone']) }}
             |
             {{ $event->get_location() }}
         </div>
