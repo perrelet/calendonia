@@ -92,12 +92,95 @@ class Event extends Model
 
     } */
 
-    public function get_start_date ($format = "Y-m-d H:i:s") {
+    public function get_date_obj ($date_string, $timezone = null) {
 
-        $datetime = new \DateTime($this->start_date, new \DateTimeZone($this->timezone));
+        if (!$date_string) return;
+        $date = new \DateTime($date_string, new \DateTimeZone($this->timezone));
+        if ($timezone) $date->setTimeZone(new \DateTimeZone($timezone));
+        return $date;
+
+    }
+
+    public function get_start_obj ($timezone = null) {
+
+        return $this->get_date_obj($this->start_date, $timezone);
+
+    }
+
+    public function get_end_obj ($timezone = null) {
+
+        return $this->get_date_obj($this->end_date, $timezone);
+
+    }
+
+    public function get_start_date ($format = "Y-m-d H:i:s", $timezone = null) {
+
+        return $this->start_date ? $this->get_start_obj($timezone)->format($format) : null;
         //if () $datetime->setTimezone(new \DateTimeZone('Pacific/Chatham'))
-        return $datetime->format($format);
         
+    }
+
+    public function get_end_date ($format = "Y-m-d H:i:s", $timezone = null) {
+
+        return $this->end_date ? $this->get_end_obj($timezone)->format($format) : null;
+        
+    }
+
+    public function get_time_range ($timezone = null) {
+
+        $start_obj = $this->get_start_obj($timezone);
+
+        if ($this->end_date) {
+
+            // Has End...
+
+            $end_obj = $this->get_end_obj($timezone);
+
+            if ($start_obj->format("Y-m-d") == $end_obj->format("Y-m-d")) {
+
+                // Same Day...
+
+                if ($start_obj->format("a") == $end_obj->format("a")) {
+
+                    return $start_obj->format("h:i") . " - " . $end_obj->format("h:i a") . " " . $start_obj->format("T");
+
+                } else {
+
+                    return $start_obj->format("h:i a") . " - " . $end_obj->format("h:i a") . " " . $start_obj->format("T");
+
+                }
+
+            } else {
+
+                // Longer than a Day...
+
+                $end_midnight = clone $end_obj;
+                $end_midnight->setTime(23,59);
+                $interval = $end_midnight->modify("+1 days")->diff($start_obj);
+                $days = $interval->format("%a");
+
+                if ($days < 14) {
+
+                    return "{$days} days";
+
+                } else {
+
+                    $weeks = round($days / 7);
+                    return "{$weeks} weeks";
+
+                }
+
+            }
+ 
+        } else {
+
+            return $start_obj->format("h:i a T");
+
+        }
+
+        //$start_day = $this->get_start_date("Y-m-d");
+       //$start_day = $this->get_end_date("Y-m-d");
+
     }
 
     public function get_thumb ($default = "img/default-thumb.jpg") {
@@ -119,11 +202,52 @@ class Event extends Model
 
     }
 
+    public function get_url ($type = false) {
+
+        switch ($type) {
+            case "access":
+                return $this->access_url ? $this->access_url : $this->url;
+            case "admin":
+                return $this->admin_url ? $this->admin_url : $this->url;
+        }
+
+        return $this->url;
+
+    }
+
     /* public function get_url () {
 
         return 
 
     } */
+
+    public function to_full_calendar () {
+
+        $classes = ["type-" . str($this->type)->slug()];
+
+        //'auto', 'block', 'list-item', 'background', 'inverse-background', or 'none'
+
+        foreach ($this->tags as $tag) $classes[] = "tag-{$tag->slug}";
+
+        return [
+            'id' => $this->id,
+            'groupId' => null,
+            'allDay' => null,
+            'start' => $this->get_start_date("Y-m-d"),
+            'end' => $this->get_end_date("Y-m-d"),
+            'title' => $this->title,
+            'url' => $this->url,
+            'classNames' => $classes,
+            'editable' => false,
+            'display' => 'auto',
+            // 'overlap' => $this->,
+            // 'constraint' => $this->,
+            // 'backgroundColor' => null,
+            // 'borderColor' => null,
+            // 'textColor' => null,
+        ];
+
+    }
 
     // STATIC METHODS
 
