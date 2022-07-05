@@ -36,6 +36,7 @@ class CalendarContoller extends Controller
             'ui_type'   => ['nullable', 'integer'],     // Display type filtering in ui.
             'ui_tags'   => ['nullable', 'integer'],     // Display tag filtering in ui.
             'direct'    => ['nullable', 'integer'],     // Links events to their access_url value if one exists.
+            'align'     => ['nullable', 'string'],      // Alignment on page.
         ]);
 
         $uri = explode("/", Route::current()->uri);
@@ -71,6 +72,8 @@ class CalendarContoller extends Controller
         $args['ui_tags']    = $args['ui_tags'] ?? 0;
 
         $args['direct'] = $args['direct'] ?? 0;
+
+        $args['align'] = $args['align'] ?? 'center';
 
         $query = Event::query()
         ->when($args['start'], function ($query, $start) {

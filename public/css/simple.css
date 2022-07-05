@@ -5,6 +5,14 @@ body {
     align-items: center;
 }
 
+body.align-left {
+    align-items: flex-start;
+}
+
+body.align-right {
+    align-items: flex-end;
+}
+
 main {
     max-width: 600px;
     width: 100%;

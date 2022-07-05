@@ -6,7 +6,7 @@
 
         <title>Calendonia</title>
 
-        <link href='{{ url("/css/{$template}.css?v=1.0.4") }}' rel='stylesheet'>
+        <link href='{{ url("/css/{$template}.css?v=1.0.5") }}' rel='stylesheet'>
         <link href='{{ url("/css/normalize.css") }}' rel='stylesheet'>
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
         @includeIf("components.event.scripts.{$template}_scripts")
 
     </head>
-    <body>
+    <body class='align-{{$args['align']}}'>
         @if(View::exists("components.events.{$template}"))
             @include("components.events.{$template}")
         @else
