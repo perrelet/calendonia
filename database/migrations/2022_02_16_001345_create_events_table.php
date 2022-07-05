@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('connection_id')->comment("*");
             $table->text('external_id')->comment("*");
 
+            $table->boolean('hide')->nullable();
             $table->dateTime('show_after')->nullable();
             $table->dateTime('hide_after')->nullable();
 

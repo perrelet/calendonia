@@ -1,0 +1,134 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.event {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.event * {
+    box-sizing: border-box;
+}
+
+a.event {
+    perspective: 500px;
+    perspective-origin: left;
+    transition: 0.25s
+}
+
+a.event:hover, a.event:active {
+    transform: translate(0.5rem, 0px);
+}
+
+.thumb {
+    min-width: 64px;
+    min-height: 64px;
+    background-size: cover;
+    background-position: 50% 50%;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+}
+
+.paper-date {
+    background-color: #f4f4f4;
+    color: #8e8e8e;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+    line-height: 1.3;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    margin: 8px 0px;
+    box-shadow: 0px 2px 1px rgb(185 185 185);
+    font-weight: 600;
+}
+
+.paper-date:before, .paper-date:after {
+    position: absolute;
+    top: -4px;
+    background-color: #f4f4f4;
+    width: 5px;
+    height: 4px;
+    content: "";
+}
+
+a .paper-date {
+    background-color: #23CBF4;
+    color: #fff;
+    transition: 1s;
+    box-shadow: 0px 2px 1px rgb(13 154 189);
+}
+
+a .paper-date:before, a .paper-date:after {
+    background-color: #23CBF4;
+}
+
+a:hover .paper-date, a:active .paper-date {
+    transform: rotate3d(0, 1, 0, 360deg);
+}
+
+.paper-date:before {
+    left: 10px;
+}
+
+.paper-date:after {
+    right: 10px;
+}
+
+.info {
+    width: 100%;
+    padding-left: 1rem;
+}
+
+.info .title {
+    margin-bottom: 0.25rem;
+}
+
+.info .time {
+    margin-bottom: 0.33rem;
+    font-size: 0.8em
+}
+
+.info .tags {
+    display: flex;
+}
+
+.info .tags > div {
+    background: #23CBF4;
+    color: #fff;
+    font-size: 0.7em;
+    margin-right: 0.25rem;
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+}
+
+.info .type {
+    background: #3fd9ff;
+    color: #fff;
+    font-size: 0.7em;
+    margin-right: 0.25rem;
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+    display: inline-block;
+}
+
+.info .type[data-type='tribal-heart-ceremony'] {
+    background: #ff923f;
+}
+
+.info .type[data-type='online-event'] {
+    background: #3deea8;
+}

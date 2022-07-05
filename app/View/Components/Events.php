@@ -6,18 +6,22 @@ use Illuminate\View\Component;
 
 class Events extends Component
 {
+    public $args;
     public $component;
     public $events;
+    public $grouped;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($component, $events)
+    public function __construct($args, $events, $grouped, $component)
     {
-        $this->component    = $component;
+        $this->args         = $args;
         $this->events       = $events;
+        $this->grouped      = $grouped;
+        $this->component    = $component;
     }
 
     /**
