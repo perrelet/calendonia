@@ -7,7 +7,7 @@
                     <option value='{{ request()->fullUrlWithQuery(['type' => 0]) }}'>All Types</option>
                 @foreach ($args['list_types'] as $type)
                     <option value='{{ request()->fullUrlWithQuery(['type' => str_replace(' ', '-', $type)]) }}'
-                    @if ($type == $args['type'])
+                    @if (in_array(strtolower($type), $args['type']))
                     selected="selected"
                     @endif
                     >{{ ucwords($type) }}</option>

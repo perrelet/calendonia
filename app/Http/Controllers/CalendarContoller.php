@@ -58,8 +58,8 @@ class CalendarContoller extends Controller
         if ($args['group']) $args['group'] = str_replace("-", " ", $args['group']);
         $args['ppp'] = $args['ppp'] ?? 8;
 
-        $args['type'] = isset($args['type']) && $args['type'] ? $args['type'] : false;
-        if ($args['type']) $args['type'] = str_replace("-", " ", $args['type']);
+        $args['type'] = isset($args['type']) && $args['type'] ? $args['type'] : [];
+        if ($args['type']) $args['type'] = str_replace("-", " ", strtolower($args['type']));
         if ($args['type']) $args['type'] = explode(",", $args['type']);
 
         $args['tags'] = isset($args['tags']) && $args['tags'] ? array_map('trim', explode(',', $args['tags'])) : [];
