@@ -22,5 +22,6 @@ Route::get('/injest/{connection_id}', [EventController::class, 'injest'])->where
 Route::get('/api/events', [CalendarContoller::class, 'index']);
 Route::get('/api/event/{event}', [EventController::class, 'show'])->whereNumber('event');
 
+Route::get('/api/{template}', [CalendarContoller::class, 'index']);
 Route::get('/{template}', [CalendarContoller::class, 'index']);
 Route::get('/', [CalendarContoller::class, 'index']);
