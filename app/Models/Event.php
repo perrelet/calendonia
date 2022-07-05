@@ -152,9 +152,21 @@ class Event extends Model
 
             } else {
 
+                if ($start_obj->format("m") == $end_obj->format("m")) {
+
+                    return $start_obj->format("j") . " - " . $end_obj->format("j M");
+
+                } else {
+
+                    return $start_obj->format("j M") . " - " . $end_obj->format("j M");
+
+                }
+
+                
+
                 // Longer than a Day...
 
-                $end_midnight = clone $end_obj;
+                /* $end_midnight = clone $end_obj;
                 $end_midnight->setTime(23,59);
                 $interval = $end_midnight->modify("+1 days")->diff($start_obj);
                 $days = $interval->format("%a");
@@ -168,7 +180,7 @@ class Event extends Model
                     $weeks = round($days / 7);
                     return "{$weeks} weeks";
 
-                }
+                } */
 
             }
  
