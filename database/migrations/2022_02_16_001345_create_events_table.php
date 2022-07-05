@@ -31,7 +31,8 @@ return new class extends Migration
             $table->dateTime('show_after')->nullable();
             $table->dateTime('hide_after')->nullable();
 
-            $table->string('url', 512)->nullable()->comment("Primary URL to the event listin.g");
+            $table->string('url', 512)->nullable()->comment("Primary URL to the event listing.");
+            $table->string('access_url', 512)->nullable()->comment("URL place where users can access the actual event.");
             $table->string('admin_url', 512)->nullable()->comment("URL to backend / config area where event can be editted.");
             $table->json('links')->nullable()->comment("JSON: List of social / external / other related urls. [{'label': 'Example', 'url': 'https://example.com'}, ... ]");
 
