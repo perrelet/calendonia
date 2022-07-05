@@ -5,8 +5,13 @@ body {
     align-items: center;
 }
 
-.events {
+main {
     max-width: 600px;
+    width: 100%;
+}
+
+.events {
+    padding-bottom: 2rem;
 }
 
 .item {
@@ -154,6 +159,8 @@ a.event:active .info .type {
 
     box-shadow: 0px 1.6px 3.5px -10px rgb(0 0 0 / 11%), 0px 5.4px 11.8px -10px rgb(0 0 0 / 17%), 0px 24px 53px -10px rgb(0 0 0 / 28%);
 
+    box-shadow: 2px 8px 10px rgb(0 0 0 / 10%), 1px 2px 4px rgb(0 0 0 / 10%);
+
 }
 
 a .card {
@@ -195,6 +202,7 @@ a .card {
     margin-bottom: 0.33rem;
     font-size: 0.8em;
     color: #999;
+    color: #c98f2b;
 }
 
 .info .tags {
@@ -244,8 +252,7 @@ a .card {
     background: #ccc552;
 }
 
-.info .type[data-type='study-hub-resource'],
-.info .type[data-type='study-hub-lesson'] {
+.info .type[data-type='study-hub'] {
     background: #3fd9ff;
 }
 
@@ -256,6 +263,60 @@ a .card {
 
 @media only screen and (max-width: 600px) {
 
+}
+
+/* FILTERS */
+
+.ui {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.ui .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    box-shadow: 0px 0.3px 1.5px rgb(0 0 0 / 4%), 0px 1.1px 4.9px rgb(0 0 0 / 5%), 0px 5px 22px rgb(0 0 0 / 9%);
+    box-shadow: 0px 8px 10px rgb(0 0 0 / 10%), 0px 2px 4px rgb(0 0 0 / 10%);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.ui label {
+    display: flex;
+    align-items: center;
+    background: #b0b0b0;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    padding: 0 0.5rem;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+
+.ui select {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    font-family: "Open Sans";
+    order: 1;
+}
+
+.ui select:hover + label {
+    background:#666;
+}
+
+.ui select:focus + label {
+    background:#23CBF4;
+}
+
+.ui select:focus {
+    outline: none;
 }
 
 /* PAGINATION */
