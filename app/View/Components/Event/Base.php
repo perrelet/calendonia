@@ -8,17 +8,15 @@ class Base extends Component
 {
 
     public $event;
-    public $args;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($event, $args = [])
+    public function __construct($event)
     {
         $this->event    = $event;
-        $this->args     = $args;
     }
 
     public function render()
